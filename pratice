@@ -7,3 +7,21 @@ node {
             branch: 'main'
     }
 }
+
+
+pipeline {
+    agent any
+    stages {
+        stage('test') {
+            steps {
+                sh 'echo hello'
+            }
+        }
+        stage('learning') {
+            steps {
+                git url: 'https://github.com/spring-projects/spring-petclinic.git' , 
+                    branch: 'main'
+            }
+        }
+    }
+}
