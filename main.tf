@@ -1,13 +1,24 @@
-provider "aws" {
-    access_key = "AKIA4QAV3ITD4E6ALP6C"
-    secret_key = "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"
-}
-
-
-resource "aws_s3_bucket" "first_bucket"  {
-    bucket = "longflowe2"
-    tags = {
-            Name        = "My bucket from tf"
-            Environment = "Dev1"
+pipeline {
+    agent { label 'OPENJDK-11-JDK' }
+    stages {
+        stage('Git checkout') {
+           steps{
+                git branch: 'main', credentialsId: 'Github', url: 'https://github.com/longflewtinku/jenkins-1-.git'
+            }
+        }
+        stage('terraform format check') {
+            steps{
+                sh 'terraform fmt'
+            }
+        }
+        stage('terraform Init') {
+            steps{
+                sh 'terraform init'
+            }
+        }
+        stage('terraform apply') {
+            steps{
+                sh 'terraform apply --auto-approve'
+            }
+        }
     }
-}
