@@ -1,0 +1,16 @@
+pipeline {
+    agent { label 'OPENJDK-11-JDK' }
+    stages {
+        stage('Git checkout') {
+           steps{
+                git branch: 'main', credentialsId: 'Github', url: 'https://github.com/longflewtinku/jenkins-1-.git'
+            }
+        }
+        stage('terraform Init') {
+            steps{
+                sh """terraform init
+                      terraform apply --auto-approve"""
+            }
+        }
+    }
+}    
