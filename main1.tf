@@ -1,5 +1,5 @@
 pipeline {
-    agent { label 'OPENJDK-11-JDk'}
+    agent { label 'OPENJDK-11-JDK'}
     stages {
         stage('clone'){
             steps{
